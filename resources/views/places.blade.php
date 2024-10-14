@@ -75,7 +75,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <!-- Gallery Images -->
                 <img class="gallery-item w-full h-48 object-cover rounded-lg shadow-md cursor-pointer"
-                    src="https://via.placeholder.com/400" alt="Image 1" onclick="openModal(this.src)">
+                    src="{{ $place[0]->image }}" alt="Image 1" onclick="openModal(this.src)">
             </div>
         </div>
     </section>

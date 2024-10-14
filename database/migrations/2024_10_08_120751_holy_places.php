@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id('id');
             $table->string('name');
             $table->string('discription');
-            $table->text('image');
+            $table->text('image')->default(null);
             $table->text('latitude');
             $table->string('longitude');
             $table->string('location');
