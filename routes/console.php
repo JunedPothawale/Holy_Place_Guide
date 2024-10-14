@@ -1,19 +1,26 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
+use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
+
 
 /*
 |--------------------------------------------------------------------------
 | Console Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of your Closure based console
-| commands. Each Closure is bound to a command instance allowing a
-| simple approach to interacting with each command's IO methods.
-|
+|-------------------------------------------------------------------------
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+Artisan::command('make:admin', function (User $user) {
+    $username = $this->ask('Enter The user name');
+    $useremail = $this->ask('Enter The user email');
+    $userpassword = $this->ask('Enter The user password');
+    $this->info($username);
+    $user->name = $username;
+    $user->email = $useremail;
+    $user->password = bcrypt($userpassword);
+    if ($user->save()) {
+        $this->info('User saved');
+    } else {
+        $this->info('unable to save user');
+    }
+});

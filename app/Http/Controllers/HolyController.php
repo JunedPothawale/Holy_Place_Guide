@@ -7,23 +7,26 @@ use Illuminate\Http\Request;
 
 class HolyController extends Controller
 {
-    public function view(HolyPlace $holyPlace){
-        $places = $holyPlace->get('*');
-        return view('index')->with('places',$places);
+    public function view(HolyPlace $holyPlace)
+    {
+        $places = $holyPlace->distinct('location')->get('*');
+        return view('index')->with(['places' => $places]);
     }
     // app/Http/Controllers/PlaceController.php
 
-public function show(Request $request)
-{
-    if($request->has('id')){
+    public function show(Request $request)
+    {
+        $place = HolyPlace::where('id', '=', $request->id)->get('*');
 
-        $place = HolyPlace::findOrFail($request->id)->get('*');
-    }else{
-        $place = HolyPlace::get('*');
+        return view('places', compact('place'));
     }
+    public function getLocation(HolyPlace $holyPlace, Request $request)
+    {
+        $holyPlacemodel = $holyPlace->query();
 
+        $holyplaces = $holyPlacemodel->where('location', 'like', '%' . $request->search_location . '%')->orWhere('name', 'like', '%' . $request->search_location . '%')->get('*');
 
-    return view('places', compact('place'));
-}
+        return view('suggestion-page')->with(['holyplaces' => $holyplaces]);
+    }
 
 }

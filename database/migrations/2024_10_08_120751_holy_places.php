@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,12 +12,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('holy_places',function(Blueprint $table){
+        Schema::create('holy_places', function (Blueprint $table) {
             $table->id('id');
             $table->string('name');
+            $table->string('discription');
             $table->text('image');
+            $table->text('latitude');
+            $table->string('longitude');
             $table->string('location');
-            $table->string('timing');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('holy_places');
     }
 };
